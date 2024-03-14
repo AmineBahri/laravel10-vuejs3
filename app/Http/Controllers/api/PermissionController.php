@@ -11,8 +11,7 @@ class PermissionController extends Controller
 {
     public function index($roleId)
     {
-        $pageId = Page::where('page','permissions')->value('id');
-        if (!auth()->user()->role->permissions()->where('page_id',$pageId)->where('read',1)->exists()) {
+        if (!get_permissions('permissions','read')) {
             return response()->json(['status'=>401,'message'=>'you are not allowed to read permissions']);
         }
         $permissions = Permission::where('role_id',$roleId)->get();
@@ -21,8 +20,7 @@ class PermissionController extends Controller
 
     public function store(Request $request)
     {
-        $pageId = Page::where('page','permissions')->value('id');
-        if (!auth()->user()->role->permissions()->where('page_id',$pageId)->where('update',1)->exists()) {
+        if (!get_permissions('permissions','update')) {
             return response()->json(['status'=>401,'message'=>'you are not allowed to update permissions']);
         }
         $request->validate([
@@ -34,6 +32,9 @@ class PermissionController extends Controller
         if ($count>0) {
             $permission->update([$request->permission => $request->event]);
             return response()->json(['status'=>200,'message'=>'sucess']);
+        }
+        if (!get_permissions('permissions','create')) {
+            return response()->json(['status'=>401,'message'=>'you are not allowed to create permissions']);
         }
         $permission = Permission::create([
             'role_id'=>$request->role_id,

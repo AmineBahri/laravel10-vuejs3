@@ -1,13 +1,18 @@
 <script setup>
 import { ref } from 'vue';
-import { onMounted, inject } from '@vue/runtime-core';
+import { onMounted, inject, watchEffect } from '@vue/runtime-core';
 import axios from 'axios';
 import { toast } from 'vue3-toastify';
+import Paginate from 'vuejs-paginate-next';
 
 const langs = ref([]);
 const isAdd = ref(false);
 const isEdit = ref(false);
 const keyValue = ref("");
+const search = ref("");
+const page = ref(1);
+const pageCount = ref(1);
+const max = ref(3);
 const errors = ref("");
 const refForm = ref([
 	{
@@ -68,9 +73,10 @@ const notifyError = (message)=>{
     });
 }
 
-const getLangs = async ()=>{
-    await axios.get(`api/langs`).then((res)=>{
-        langs.value = res.data.langs;
+const getLangs = async (page = 1)=>{
+    await axios.get(`api/langs?page=${page}&&search=${search.value}`).then((res)=>{
+        langs.value = res.data.langs.data;
+        pageCount.value = res.data.langs.last_page;
     }).catch((err)=>{
     })
 }
@@ -107,8 +113,22 @@ const editLang = (key)=>{
     })
 }
 onMounted(async()=>{
-    await getLangs();
+    await getLangs(page.value);
 })
+
+const nextPage = () => {
+  if (page.value < pageCount.value) {
+    page.value++;
+    getLangs(page.value);
+  }
+};
+
+const prevPage = () => {
+  if (page.value > 1) {
+    page.value--;
+    getLangs(page.value);
+  }
+};
 </script>
 <template>
 	<div>
@@ -160,6 +180,9 @@ onMounted(async()=>{
 				<div class="card">
 					<div class="card-header">
 						<h4 class="card-title">{{$t("Table")}} {{$t("langs")}}</h4>
+						<h4 class="card-title">
+							<input class="form-control" v-model="search" @input="(getLangs(page))" placeholder="search">
+						</h4>
 					</div>
 					<div class="table-responsive">
 						<table class="table">
@@ -186,6 +209,21 @@ onMounted(async()=>{
 								</tr>
 							</tbody>
 						</table>
+						<!--<Paginate>
+							v-model="page" 
+							@click="getLangs(page)" 
+							:page-count="pageCount"
+						 	:page-range="max"
+						 	:prev-text="$t('next')"
+						 	:next-text="$t('next')"
+						 	:container-class="pagination"
+						</Paginate>-->
+						 <!-- Pagination controls -->
+					    <div class="pagination">
+					      <button @click="prevPage" class="mr-2 btn btn-primary" :disabled="page === 1">Previous</button>
+					      	<span>{{ page }} / {{ pageCount }}</span>
+					      <button @click="nextPage" class="ml-2 btn btn-primary" :disabled="page === pageCount">Next</button>
+					    </div>
 					</div>
 				</div>
 			</div>

@@ -11,6 +11,9 @@ class RoleController extends Controller
 {
     public function index()
     {
+        if (!get_permissions('roles','read')) {
+            return response()->json(['status'=>401,'message'=>'you are not allowed to read roles']);
+        }
         $roles = Role::get();
         return response()->json(['roles'=>$roles,'message'=>'sucess get roles']);
     }
@@ -18,6 +21,9 @@ class RoleController extends Controller
     public function store(Request $request)
     {
         if ($request->id) {
+            if (!get_permissions('roles','update')) {
+                return response()->json(['status'=>401,'message'=>'you are not allowed to update roles']);
+            }
             $request->validate([
                 'name_role'=>['required',Rule::unique('roles')->ignore($request->id,'id'),]
             ]);
@@ -29,6 +35,9 @@ class RoleController extends Controller
         $request->validate([
             'name_role'=>'required'
         ]);
+        if (!get_permissions('roles','create')) {
+            return response()->json(['status'=>401,'message'=>'you are not allowed to create roles']);
+        }
         $role = Role::create([
             'name_role'=>$request->name_role,
         ]);

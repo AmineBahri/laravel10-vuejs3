@@ -23,6 +23,7 @@ use Illuminate\Support\Facades\Route;
 Route::post('/register',[AuthController::class,'register']);
 Route::post('/login',[AuthController::class,'login']);
 Route::post('/reset-password',[AuthController::class,'resetPassword']);
+Route::get('/get-i18n',[LangController::class,'getI18n'])->name('getI18n');
 
 Route::group(['middleware'=>['auth:sanctum']],function() {
     Route::get('/user',[AuthController::class,'user']);
@@ -41,7 +42,6 @@ Route::group(['middleware'=>['auth:sanctum']],function() {
     Route::get('/get-permissions/{roleId}',[PermissionController::class,'index']);
     Route::post('/update-permission',[PermissionController::class,'store']);
 
-    Route::get('/get-i18n',[LangController::class,'getI18n'])->name('getI18n');
     Route::post('/add-langs',[LangController::class,'store'])->name('add.langs');
     Route::get('/langs/{key}',[LangController::class,'update'])->name('key.langs');
     Route::get('/langs',[LangController::class,'index'])->name('get.langs');
