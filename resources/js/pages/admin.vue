@@ -1,8 +1,158 @@
+<script setup>
+import { ref } from '@vue/reactivity';
+const ex11 = ref(['red', 'indigo', 'orange', 'primary', 'secondary', 'success', 'info', 'warning', 'error', 'red-darken-3', 'indigo-darken-3', 'orange-darken-3']);
+</script>
 <template>
     <div>
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Cards</h1>
+            <v-card flat>
+                <v-card-text>
+                <v-container fluid>
+                    <v-row>
+                    <v-col
+                        cols="12"
+                        md="4"
+                        sm="4"
+                    >
+                        <v-switch
+                        v-model="ex11"
+                        color="red"
+                        label="red"
+                        value="red"
+                        hide-details
+                        ></v-switch>
+                        <v-switch
+                        v-model="ex11"
+                        color="red-darken-3"
+                        label="red-darken-3"
+                        value="red-darken-3"
+                        hide-details
+                        ></v-switch>
+                    </v-col>
+                    <v-col
+                        cols="12"
+                        md="4"
+                        sm="4"
+                    >
+                        <v-switch
+                        v-model="ex11"
+                        color="indigo"
+                        label="indigo"
+                        value="indigo"
+                        hide-details
+                        ></v-switch>
+                        <v-switch
+                        v-model="ex11"
+                        color="indigo-darken-3"
+                        label="indigo-darken-3"
+                        value="indigo-darken-3"
+                        hide-details
+                        ></v-switch>
+                    </v-col>
+                    <v-col
+                        cols="12"
+                        md="4"
+                        sm="4"
+                    >
+                        <v-switch
+                        v-model="ex11"
+                        color="orange"
+                        label="orange"
+                        value="orange"
+                        hide-details
+                        ></v-switch>
+                        <v-switch
+                        v-model="ex11"
+                        color="orange-darken-3"
+                        label="orange-darken-3"
+                        value="orange-darken-3"
+                        hide-details
+                        ></v-switch>
+                    </v-col>
+                    </v-row>
+
+                    <v-row class="mt-12">
+                    <v-col
+                        cols="12"
+                        md="4"
+                        sm="4"
+                    >
+                        <v-switch
+                        v-model="ex11"
+                        color="primary"
+                        label="primary"
+                        value="primary"
+                        hide-details
+                        ></v-switch>
+                        <v-switch
+                        v-model="ex11"
+                        color="secondary"
+                        label="secondary"
+                        value="secondary"
+                        hide-details
+                        ></v-switch>
+                    </v-col>
+                    <v-col
+                        cols="12"
+                        md="4"
+                        sm="4"
+                    >
+                        <v-switch
+                        v-model="ex11"
+                        color="success"
+                        label="success"
+                        value="success"
+                        hide-details
+                        ></v-switch>
+                        <v-switch
+                        v-model="ex11"
+                        color="info"
+                        label="info"
+                        value="info"
+                        hide-details
+                        ></v-switch>
+                    </v-col>
+                    <v-col
+                        cols="12"
+                        md="4"
+                        sm="4"
+                    >
+                        <v-switch
+                        v-model="ex11"
+                        color="warning"
+                        label="warning"
+                        value="warning"
+                        hide-details
+                        ></v-switch>
+                        <v-switch
+                        v-model="ex11"
+                        color="error"
+                        label="error"
+                        value="error"
+                        hide-details
+                        ></v-switch>
+                    </v-col>
+                    </v-row>
+                </v-container>
+                </v-card-text>
+            </v-card>
+            <v-carousel>
+                <v-carousel-item
+                    src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
+                    cover
+                ></v-carousel-item>
+
+                <v-carousel-item
+                    src="https://cdn.vuetifyjs.com/images/cards/hotel.jpg"
+                    cover
+                ></v-carousel-item>
+
+                <v-carousel-item
+                    src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
+                    cover
+                ></v-carousel-item>
+            </v-carousel>
         </div>
 
         <div class="row">
