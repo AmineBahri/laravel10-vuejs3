@@ -6,6 +6,7 @@ import footerComponent from '../layouts/footerComponent.vue';
 
 const toggled = ref("");
 const token = localStorage.getItem('token');
+const dir  = localStorage.getItem('direction');
 const user = ref("");
 axios.get('api/user').then((res)=>{
     user.value = res.data.user;
@@ -31,7 +32,9 @@ axios.get('api/user').then((res)=>{
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-                    <router-view :user="user"></router-view>
+                    <v-locale-provider :rtl="dir=='rtl'">
+                        <router-view :user="user"></router-view>
+                    </v-locale-provider>
                 </div>
                 <!-- /.container-fluid -->
 

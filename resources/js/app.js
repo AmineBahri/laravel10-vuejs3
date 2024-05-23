@@ -2,6 +2,8 @@ import './bootstrap';
 import './plugins/axios';
 import './vuetify';
 import 'vuetify/dist/vuetify.min.css';
+import '@mdi/font/css/materialdesignicons.css'; // Ensure you are using css-loader
+import 'material-design-icons-iconfont/dist/material-design-icons.css'; // Ensure your project is capable of handling css files
 import 'vuetify/styles';
 import router from './router';
 import { createApp } from 'vue';
