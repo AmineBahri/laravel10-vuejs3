@@ -35,6 +35,11 @@ const router = createRouter({
             component:()=> import('../pages/roles/role.vue'),
         },
         {
+            path:'/app-fonts',
+            name:'appFonts',
+            component:()=> import('../pages/appFonts/appFont.vue'),
+        },
+        {
             path:'/translates',
             name:'translates',
             component:()=> import('../pages/translates/translate.vue'),

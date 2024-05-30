@@ -19,12 +19,12 @@
     <link href="{{asset('css/sb-admin-2.min.css')}}" rel="stylesheet">
     <script type="text/javascript">
         let lang = localStorage.getItem('lang');
-        if (!lang || lang=="ar") 
+        if (!lang || lang=="ar")
         {
             localStorage.setItem("lang","ar");
             var x = document.getElementsByTagName("link");
             for (var i = 0; i<x.length;i++) {
-                if (x[i].getAttribute("href") == "css/sb-admin-2.min.css") 
+                if (x[i].getAttribute("href") == "css/sb-admin-2.min.css")
                 {
                     x[i].setAttribute("href","css/sb-admin-rtl.min.css")
 
@@ -33,7 +33,7 @@
         } else {
             var x = document.getElementsByTagName("link");
             for (var i = 0; i<x.length;i++) {
-                if (x[i].getAttribute("href") == "css/sb-admin-rtl.min.css") 
+                if (x[i].getAttribute("href") == "css/sb-admin-rtl.min.css")
                 {
                     x[i].setAttribute("href","css/sb-admin-2.min.css")
 
@@ -41,6 +41,17 @@
             }
         }
     </script>
+    <style>
+        @foreach ($fonts as $font)
+            @font-face{
+                font-family: {{$font->name_font}};
+                src:url({{$font->path}})
+            }
+        @endforeach
+        body{
+            font-family:'webfont !important';
+        }
+    </style>
 </head>
 @vite('resources/js/app.js')
 <body id="page-top">
@@ -49,8 +60,8 @@
     </div>
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
-    </a>    
-    
+    </a>
+
     <!-- Bootstrap core JavaScript-->
     <script src="{{asset('vendor/jquery/jquery.min.js')}}"></script>
     <script src="{{asset('vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>

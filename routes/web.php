@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\AppFont;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,6 +19,7 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::get('/{any?}', function () {
-    return view('application');
+    $fonts = AppFont::get();
+    return view('application',compact('fonts'));
 })->where('any', '.*');
 

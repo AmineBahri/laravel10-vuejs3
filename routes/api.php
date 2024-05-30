@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\api\AppFontController;
 use App\Http\Controllers\api\AuthController;
 use App\Http\Controllers\api\UserController;
 use App\Http\Controllers\api\PageController;
@@ -39,6 +40,8 @@ Route::group(['middleware'=>['auth:sanctum']],function() {
     Route::post('/create-page',[PageController::class,'store']);
     Route::get('/get-roles',[RoleController::class,'index']);
     Route::post('/create-role',[RoleController::class,'store']);
+    Route::get('/get-fonts',[AppFontController::class,'index']);
+    Route::post('/create-font',[AppFontController::class,'store']);
     Route::get('/get-permissions/{roleId}',[PermissionController::class,'index']);
     Route::post('/update-permission',[PermissionController::class,'store']);
 
