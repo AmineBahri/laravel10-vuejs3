@@ -15,7 +15,7 @@ class PageController extends Controller
             return response()->json(['status'=>401,'message'=>'you are not allowed to read pages']);
         }
         $pages = Page::with(['pages','page_name','permissions'])->orderBy('order','asc')->get();
-        return response()->json(['pages'=>$pages,'message'=>'sucess get pages']);
+        return response()->json(['pages'=>$pages,'message'=>'success get pages']);
     }
 
     public function store(Request $request)
@@ -34,7 +34,7 @@ class PageController extends Controller
                 'order'=>$request->order,
                 'page_id'=>$request->page_id,
             ]);
-            return response()->json(['message'=>'page updated sucessfully']);
+            return response()->json(['message'=>'page updated successfully']);
         }
         $request->validate([
             'page'=>'required|string|unique:pages'
@@ -50,6 +50,6 @@ class PageController extends Controller
             'page_id'=>$request->page_id,
         ]);
 
-        return response()->json(['page'=>$page,'message'=>'page created sucessfully']);
+        return response()->json(['page'=>$page,'message'=>'page created successfully']);
     }
 }

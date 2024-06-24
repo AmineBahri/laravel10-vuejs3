@@ -15,7 +15,7 @@ class PermissionController extends Controller
             return response()->json(['status'=>401,'message'=>'you are not allowed to read permissions']);
         }
         $permissions = Permission::where('role_id',$roleId)->get();
-        return response()->json(['permissions'=>$permissions,'status'=>200,'message'=>'sucess get permissions']);
+        return response()->json(['permissions'=>$permissions,'status'=>200,'message'=>'success get permissions']);
     }
 
     public function store(Request $request)
@@ -31,7 +31,7 @@ class PermissionController extends Controller
         $count = $permission->count();
         if ($count>0) {
             $permission->update([$request->permission => $request->event]);
-            return response()->json(['status'=>200,'message'=>'sucess']);
+            return response()->json(['status'=>200,'message'=>'success']);
         }
         if (!get_permissions('permissions','create')) {
             return response()->json(['status'=>401,'message'=>'you are not allowed to create permissions']);
@@ -42,6 +42,6 @@ class PermissionController extends Controller
             $request->permission => $request->event
         ]);
 
-        return response()->json(['status'=>200,'message'=>'sucess']);
+        return response()->json(['status'=>200,'message'=>'success']);
     }
 }

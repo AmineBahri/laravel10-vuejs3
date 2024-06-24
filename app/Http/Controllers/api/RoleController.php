@@ -15,7 +15,7 @@ class RoleController extends Controller
             return response()->json(['status'=>401,'message'=>'you are not allowed to read roles']);
         }
         $roles = Role::get();
-        return response()->json(['roles'=>$roles,'message'=>'sucess get roles']);
+        return response()->json(['roles'=>$roles,'message'=>'success get roles']);
     }
 
     public function store(Request $request)
@@ -30,7 +30,7 @@ class RoleController extends Controller
             Role::find($request->id)->update([
                 'name_role'=>$request->name_role,
             ]);
-            return response()->json(['message'=>'role updated sucessfully']);
+            return response()->json(['message'=>'role updated successfully']);
         }
         $request->validate([
             'name_role'=>'required'
@@ -42,7 +42,7 @@ class RoleController extends Controller
             'name_role'=>$request->name_role,
         ]);
 
-        return response()->json(['role'=>$role,'message'=>'role created sucessfully']);
+        return response()->json(['role'=>$role,'message'=>'role created successfully']);
     }
 
 }

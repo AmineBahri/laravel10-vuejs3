@@ -15,7 +15,7 @@ class AppFontController extends Controller
             return response()->json(['status'=>401,'message'=>'you are not allowed to read fonts']);
         }
         $fonts = AppFont::get();
-        return response()->json(['fonts'=>$fonts,'message'=>'sucess get fonts']);
+        return response()->json(['fonts'=>$fonts,'message'=>'success get fonts']);
     }
 
     public function store(Request $request)
@@ -39,7 +39,7 @@ class AppFontController extends Controller
                 'name_font'=>$request->name_font,
                 'path'=>$path
             ]);
-            return response()->json(['message'=>'font updated sucessfully']);
+            return response()->json(['message'=>'font updated successfully']);
         }
         $request->validate([
             'name_font'=>'required',
@@ -55,7 +55,7 @@ class AppFontController extends Controller
             'path'=>$path,
         ]);
 
-        return response()->json(['font'=>$font,'message'=>'font created sucessfully']);
+        return response()->json(['font'=>$font,'message'=>'font created successfully']);
     }
 
 }

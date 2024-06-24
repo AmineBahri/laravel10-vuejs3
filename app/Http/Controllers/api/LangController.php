@@ -28,7 +28,7 @@ class LangController extends Controller
                 $translate['value'] = $lang['value'];
                 $translate->save();
             }
-            return response()->json(['status'=>200,'message'=>'sucess updated']);
+            return response()->json(['status'=>200,'message'=>'success updated']);
         } else{
             foreach ($langs as $key => $lang) {
                 Lang::insert([
@@ -37,7 +37,7 @@ class LangController extends Controller
                     'lang' => $lang['lang'],
                 ]);
             }
-            return response()->json(['status'=>200,'message'=>'sucess created']);
+            return response()->json(['status'=>200,'message'=>'success created']);
         }
     }
 
@@ -55,7 +55,7 @@ class LangController extends Controller
         } else {
             $langs = Lang::orderBy('key')->paginate(5);
         }
-        
+
         return response()->json(['succes'=>true,'langs'=>$langs]);
     }
 }

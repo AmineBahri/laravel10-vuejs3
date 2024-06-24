@@ -14,7 +14,7 @@ class UserController extends Controller
             return response()->json(['status'=>401,'message'=>'you are not allowed to read users']);
         }
         $users = User::with('role')->paginate(10);
-        return response()->json(['users'=>$users,'message'=>'sucess get users']);
+        return response()->json(['users'=>$users,'message'=>'success get users']);
     }
 
     public function store(Request $request)
@@ -32,7 +32,7 @@ class UserController extends Controller
                 'email'=>$request->email,
                 'role_id'=>$request->role_id,
             ]);
-            return response()->json(['message'=>'sucess update user']);
+            return response()->json(['message'=>'success update user']);
         }
         if (!get_permissions('users','create')) {
             return response()->json(['status'=>401,'message'=>'you are not allowed to create users']);
@@ -47,6 +47,6 @@ class UserController extends Controller
         	'password'=> bcrypt($request->password),
             'role_id'=>$request->role_id,
         ]);
-        return response()->json(['message'=>'sucess create user']);
+        return response()->json(['message'=>'success create user']);
     }
 }
