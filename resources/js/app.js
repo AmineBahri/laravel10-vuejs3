@@ -9,6 +9,7 @@ import router from './router';
 import { createApp } from 'vue';
 import home from './layouts/home.vue';
 import Vue3Toast from 'vue3-toastify';
+import JsonExcel from 'vue-json-excel3';
 import 'vue3-toastify/dist/index.css';
 import i18n  from './i18n';
 import vuetify from './vuetify';
@@ -16,6 +17,7 @@ import vuetify from './vuetify';
 const app = createApp({});
 
 app.component('home-component',home);
+app.component('downloadExcel',JsonExcel);
 app.use(router);
 app.use(i18n);
 app.use(vuetify);

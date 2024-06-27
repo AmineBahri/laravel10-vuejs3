@@ -9,6 +9,16 @@ const users = ref([]);
 const page = ref(1);
 const isEdit = ref(false);
 const user = ref({});
+const fields = {
+    'id':'id',
+    'name':'name',
+    'father_name':'father_name',
+    'date_of_birth':'date_of_birth',
+    'gender':'gender',
+    'mobile':'mobile',
+    'email':'email',
+    'role':'role.name_role'
+};
 const notify = (message)=>{
     toast.success(message,{
         autoClose:3000,
@@ -52,6 +62,9 @@ onMounted(()=>{
         <div v-if="!isEdit" class="card o-hidden border-0 shadow-lg my-5">
             <div class="card-header">
                 <h4 class="card-title">users table</h4>
+                <h4 class="card-title">
+                    <download-excel class="btn btn-success" :data="users" worksheet="'worksheet'" :name="'name'" :fields="fields">download</download-excel>
+                </h4>
                 <button class="btn btn-primary btn-circle bts-sm float-end" @click="adduser">
                     <i class="fas fa-plus"></i>
                 </button>
@@ -67,7 +80,7 @@ onMounted(()=>{
                                 <td>email</td>
                                 <td>mobile</td>
                                 <td>Role Name</td>
-                            </tr>   
+                            </tr>
                         </thead>
                         <tfoot>
 
@@ -97,7 +110,7 @@ onMounted(()=>{
                                 <td>
                                     {{user.role?.name_role}}
                                 </td>
-                            </tr>                                        
+                            </tr>
                         </tbody>
                     </table>
                 </div>
