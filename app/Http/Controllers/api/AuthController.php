@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
+use App\Models\GeneralSetting;
 use App\Models\User;
 use App\Models\UserPhoto;
 use Illuminate\Http\Request;
@@ -12,7 +13,7 @@ use Illuminate\Validation\Rule;
 
 class AuthController extends Controller
 {
-    public function register(Request $request) 
+    public function register(Request $request)
     {
         Validator($request->all(),[
             'name'=>'required',
@@ -29,7 +30,7 @@ class AuthController extends Controller
         return response()->json(['status'=>200 ,'access_token'=>$token, 'token_type'=>'Bearer']);
     }
 
-    public function login(Request $request) 
+    public function login(Request $request)
     {
         $credentials = $request->validate([
             'email'=>'required|email',
@@ -43,13 +44,13 @@ class AuthController extends Controller
         return response()->json(['status'=>200 ,'access_token'=>$token, 'token_type'=>'Bearer']);
     }
 
-    public function logout(Request $request) 
+    public function logout(Request $request)
     {
         $request->user()->currentAccessToken()->delete();
         return response()->json(['status'=>200 , 'message'=>'Token removed']);
     }
 
-    public function user(Request $request) 
+    public function user(Request $request)
     {
         $id = $request->user()->id;
         $user = User::with(['photos','role'=>function($q)
@@ -58,10 +59,11 @@ class AuthController extends Controller
                 $q->with('page');
             }]);
         }])->find($id);
-        return response()->json(['status'=>200 , 'user'=>$user]);
+        $setting = GeneralSetting::with('font')->first();
+        return response()->json(['status'=>200 , 'user'=>$user, 'setting'=>$setting]);
     }
 
-    public function resetPassword(Request $request) 
+    public function resetPassword(Request $request)
     {
         $validator = Validator::make($request->all(),[
             'email'=>'required|email',
@@ -86,14 +88,14 @@ class AuthController extends Controller
         return response()->json(['status'=>200 , 'message'=>'email sent']);
     }
 
-    public function resetPass(Request $request) 
+    public function resetPass(Request $request)
     {
         $id = $request->user()->id;
         $user = User::find($id)->update(['password'=>bcrypt($request->password)]);
         return response()->json(['status'=>200 , 'message'=>'password change success']);
     }
 
-    public function userUpdate(Request $request) 
+    public function userUpdate(Request $request)
     {
         $id = $request->user()->id;
         $validator = Validator::make($request->all(),[
@@ -114,7 +116,7 @@ class AuthController extends Controller
         return response()->json(['status'=>200 , 'message'=>'user change success']);
     }
 
-    public function profileUplaod(Request $request) 
+    public function profileUplaod(Request $request)
     {
         $user = User::find($request->id);
         $file = $request->file('file');
@@ -130,14 +132,14 @@ class AuthController extends Controller
         return response()->json(['status'=>200 , 'path'=>$fileName, 'message'=>'success image upload']);
     }
 
-    public function deletePhoto(Request $request) 
+    public function deletePhoto(Request $request)
     {
         $photo = UserPhoto::find($request->id);
         $photo->delete();
         return response()->json(['status'=>200 , 'message'=>'success image delete']);
     }
 
-    public function selectPhoto(Request $request) 
+    public function selectPhoto(Request $request)
     {
         $photo = UserPhoto::find($request->id);
         $user = User::find($request->user()->id);

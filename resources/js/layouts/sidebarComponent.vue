@@ -4,6 +4,7 @@ import { onMounted, watchEffect } from '@vue/runtime-core';
 
 const props = defineProps(["toggled"]);
 const perUser = ref(JSON.parse(localStorage.getItem('perUser')));
+const setting = JSON.parse(localStorage.getItem('setting'));
 const pages = ref([]);
 onMounted(async ()=>{
     await getPages();
@@ -13,7 +14,7 @@ const filteredSubPages = (pages,per)=>{
 }
 const checkPermission = (page_id,per)=>{
     let permission = perUser.value.find(
-        permission => permission.page_id === page_id 
+        permission => permission.page_id === page_id
         && permission[per] === 1
     )
     if(permission){
@@ -40,9 +41,10 @@ watchEffect(()=>{
         <!-- Sidebar - Brand -->
         <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
             <div class="sidebar-brand-icon rotate-n-15">
-                <i class="fas fa-code"></i>
+                <!-- <i class="fas fa-code"></i> -->
+                <img :src="setting.logo ? '/'+setting.logo: '/app-assets/images/test.jpg'" width="50">
             </div>
-            <div class="sidebar-brand-text mx-3">tebiyan <sup>code</sup></div>
+            <!-- <div class="sidebar-brand-text mx-3">tebiyan <sup>code</sup></div> -->
         </a>
 
         <!-- Divider -->
@@ -75,13 +77,13 @@ watchEffect(()=>{
                     <RouterLink v-for="sub in filteredSubPages(page.pages,'read')" :key="sub.id" class="collapse-item" to="sub.path">
                         <i class="sub.icon"></i>
                         <span>{{sub.page}}</span>
-                    </RouterLink>                
+                    </RouterLink>
                 </div>
             </div>
             <RouterLink v-if="page.path != '#' && checkPermission(page.id,'read')" class="nav-link" :to="page.path">
                 <i :class="page.icon"></i>
                 <span>{{page.page}}</span>
-            </RouterLink>  
+            </RouterLink>
         </li>
 
         <!-- Divider -->

@@ -12,4 +12,9 @@ class GeneralSetting extends Model
     protected $fillable = ['font_id','font_size','name','logo','email','facebook','youtube'];
 
     public $timestamps = false;
+
+    public function font()
+    {
+        return $this->belongsTo(AppFont::class,'font_id','id');
+    }
 }

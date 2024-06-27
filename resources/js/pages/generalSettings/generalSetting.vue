@@ -76,6 +76,7 @@ const checkPermission = (page,per)=>{
                                 <td>id</td>
                                 <td>name</td>
                                 <td>logo</td>
+                                <td>font</td>
                             </tr>
                         </thead>
                         <tfoot>
@@ -99,6 +100,10 @@ const checkPermission = (page,per)=>{
                                 </td>
                                 <td>
                                     {{ generalSetting.logo }}
+                                </td>
+                                <td>
+                                    {{ generalSetting.font.name_font }} <br>
+                                    {{ generalSetting.font_size }}
                                 </td>
                             </tr>
                         </tbody>

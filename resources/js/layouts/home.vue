@@ -8,9 +8,12 @@ const toggled = ref("");
 const token = localStorage.getItem('token');
 const dir  = localStorage.getItem('direction');
 const user = ref("");
+const setting = ref({});
 axios.get('api/user').then((res)=>{
     user.value = res.data.user;
+    setting.value = res.data.setting;
     localStorage.setItem('perUser',JSON.stringify(res.data.user.role.permissions));
+    localStorage.setItem('setting',JSON.stringify(res.data.setting));
 });
 </script>
 <template>

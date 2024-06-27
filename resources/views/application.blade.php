@@ -49,7 +49,8 @@
             }
         @endforeach
         body{
-            font-family:'webfont !important';
+            font-family:{{$setting['font']['name_font']}} !important;
+            font-size:{{$setting['font_size']}}em !important;
         }
     </style>
 </head>

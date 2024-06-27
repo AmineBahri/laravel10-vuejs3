@@ -17,7 +17,7 @@ class GeneralSettingController extends Controller
         if (!get_permissions('generalSettings','read')) {
             return response()->json(['status'=>401,'message'=>'you are not allowed to read general Settings']);
         }
-        $generalSettings = GeneralSetting::get();
+        $generalSettings = GeneralSetting::with('font')->get();
         return response()->json(['generalSettings'=>$generalSettings,'message'=>'success get general Settings']);
     }
 

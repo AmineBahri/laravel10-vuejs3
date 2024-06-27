@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\AppFont;
+use App\Models\GeneralSetting;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,6 +21,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/{any?}', function () {
     $fonts = AppFont::get();
-    return view('application',compact('fonts'));
+    $setting = GeneralSetting::with('font')->first();
+    return view('application',compact('fonts','setting'));
 })->where('any', '.*');
 
